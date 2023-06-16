@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/Users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class UserController {
 
         updateUser.setName(UserDetails.getName());
         updateUser.setEmail(UserDetails.getEmail());
-        updateUser.setPassword(UserDetails.getPassword());
+        updateUser.setPasswordHash(UserDetails.getPasswordHash());
 
         UserRepository.save(updateUser);
 

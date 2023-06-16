@@ -7,12 +7,16 @@ import lombok.Setter;
 
 import jakarta.persistence.*;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "employees")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -26,15 +30,31 @@ public class User {
     private String email;
 
     @Column(name = "password")
-    private String password;
+    private String passwordHash;
 
     @Column(name = "role")
-    private int role;
+    private int role = 0;
 
     @Column(name = "create_date")
-    private String create_date;
+    private Date createDate;
 
     @Column(name = "update_date")
-    private String update_date;
+    private Date updateDate;
+
+    public void setPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashedPassword = md.digest(password.getBytes());
+        this.passwordHash = new String(hashedPassword);
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updateDate = new Date();
+    }
 
 }
