@@ -27,4 +27,14 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "role")
+    private int role;
+
+    @Column(name = "create_date")
+    private String create_date;
+
+    @Column(name = "update_date")
+    private String update_date;
+
 }
