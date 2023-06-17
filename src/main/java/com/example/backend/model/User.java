@@ -23,23 +23,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String username;
 
-    @Column(name = "emial")
-    private String email;
+//    @Column(name = "emial")
+//    private String email;
 
     @Column(name = "password")
     private String passwordHash;
 
-    @Column(name = "role")
-    private int role = 0;
 
-    @Column(name = "create_date")
+    @Column(name = "created_timestamp")
     private Date createDate;
 
-    @Column(name = "update_date")
+    @Column(name = "updated_timestamp")
     private Date updateDate;
+
+    @Column(name = "verified")
+    private int role = 0;
 
     public void setPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
