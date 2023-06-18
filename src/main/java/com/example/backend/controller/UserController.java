@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -43,7 +43,7 @@ public class UserController {
         User updateUser = UserRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id: " + id));
 
-        updateUser.setName(UserDetails.getName());
+        updateUser.setUsername(UserDetails.getUsername());
         updateUser.setEmail(UserDetails.getEmail());
         updateUser.setPasswordHash(UserDetails.getPasswordHash());
 

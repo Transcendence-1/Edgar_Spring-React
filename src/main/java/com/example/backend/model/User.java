@@ -26,21 +26,20 @@ public class User {
     @Column(name = "username")
     private String username;
 
-//    @Column(name = "emial")
-//    private String email;
+    @Column(name = "emial")
+    private String email;
 
     @Column(name = "password")
     private String passwordHash;
 
+    @Column(name = "role")
+    private int role = 0;
 
     @Column(name = "created_timestamp")
     private Date createDate;
 
     @Column(name = "updated_timestamp")
     private Date updateDate;
-
-    @Column(name = "verified")
-    private int role = 0;
 
     public void setPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
