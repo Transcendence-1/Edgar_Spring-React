@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.example.backend.controller.Crypto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +8,6 @@ import lombok.Setter;
 
 import jakarta.persistence.*;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @Getter
@@ -33,7 +32,7 @@ public class User {
     private String passwordHash;
 
     @Column(name = "role")
-    private int role = 0;
+    private String role = "User";
 
     @Column(name = "created_timestamp")
     private Date createDate;
@@ -41,11 +40,21 @@ public class User {
     @Column(name = "updated_timestamp")
     private Date updateDate;
 
-    public void setPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hashedPassword = md.digest(password.getBytes());
-        this.passwordHash = new String(hashedPassword);
+    public void setPassword(String password) throws Exception {
+        Crypto crypto = new Crypto();
+//        MessageDigest md = MessageDigest.getInstance("SHA-256");
+//        byte[] hashedPassword = md.digest(password.getBytes());
+        this.passwordHash = crypto.encrypt(password);
     }
+
+//    public String getPassword(String password) throws Exception {
+//        Crypto crypto = new Crypto();
+//        String decryptPassword;
+////        MessageDigest md = MessageDigest.getInstance("SHA-256");
+////        byte[] hashedPassword = md.digest(password.getBytes());
+//        decryptPassword = crypto.decrypt(password);
+//        return decryptPassword;
+//    }
 
     @PrePersist
     protected void onCreate() {
@@ -56,5 +65,4 @@ public class User {
     protected void onUpdate() {
         updateDate = new Date();
     }
-
 }
